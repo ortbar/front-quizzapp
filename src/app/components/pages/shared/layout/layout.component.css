@@ -1,0 +1,105 @@
+/* Estilos generales del layout */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Header styles */
+header {
+  background: #2c3e50;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header h1 {
+  margin: 0;
+  padding: 1rem 0;
+  font-size: 1.8rem;
+}
+
+/* Estilos para el menú horizontal */
+.main-nav {
+  background: #34495e;
+}
+
+.main-nav .sidebar {
+  display: block;
+}
+
+.main-nav .sidebar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav .sidebar li {
+  margin: 0;
+}
+
+.main-nav .sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  display: block;
+  transition: background-color 0.3s;
+  font-size: 0.95rem;
+}
+
+.main-nav .sidebar a:hover {
+  background: #3d566e;
+}
+
+.main-nav .sidebar a.router-link-active {
+  background: #2980b9;
+  font-weight: bold;
+}
+
+/* Contenido principal */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #cce4ea;
+  color: #7f8c8d;
+  margin-top: auto;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .main-nav .sidebar ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main-nav .sidebar a {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  main {
+    padding: 1rem;
+  }
+  
+  header h1 {
+    text-align: center;
+    padding: 0.8rem 0;
+  }
+}

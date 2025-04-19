@@ -1,0 +1,36 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Activo</th>
+        <th>Cuenta Bloqueada</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.roles.join(', ') }}</td>
+        <td>{{ user.enabled ? 'Sí' : 'No' }}</td>
+        <td class="status-cell">
+          <span [ngClass]="!user.accountNotLocked ? 'status-blocked' : 'status-ok'">
+            <i class="status-icon">
+              {{ user.accountNotLocked ? '🔓' : '🔒' }}
+            </i>
+            {{ user.accountNotLocked ? 'Desbloqueada' : 'Bloqueada' }}
+          </span>
+        </td>
+        <td class="actions-cell">
+          <button class="edit-btn">Editar</button>
+          <button class="delete-btn">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

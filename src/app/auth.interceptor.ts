@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>,
      next: HttpHandler
-    ): Observable<HttpEvent<unknown>> {
+    ): Observable<HttpEvent<any>> {
 
       const token = this.authService.getToken();
 
@@ -26,17 +26,11 @@ export class AuthInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${token}`
           }
         });
+        console.log('🛡️ Token enviado:', cloned.headers.get('Authorization'));
+
+
         return next.handle(cloned);
       }
-
-
-
-
-
-
-
-
-
 
     return next.handle(request);
   }

@@ -16,7 +16,7 @@ export class UserGuardGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       if(!this.authService.isAuthenticated()) {
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
         return false; // permite acceso si usuario autenticado (tiene token)
       } 
 
