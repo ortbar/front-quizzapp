@@ -15,6 +15,7 @@ export class UserTableComponent implements OnInit {
   @Input() users: User[] = [];
 
   // se emiten datos (el usuario a editar..)
+  @Output() editUser = new EventEmitter<User>();
 
 
   constructor() { }
@@ -25,6 +26,10 @@ export class UserTableComponent implements OnInit {
   }
 
   // Método que se llamará al hacer clic en "Editar"
+  onEdit(user: User): void {
+
+    this.editUser.emit(user);
+  }
 
 
   // onDelete(user){

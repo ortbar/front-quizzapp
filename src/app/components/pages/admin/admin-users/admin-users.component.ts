@@ -18,12 +18,6 @@ export class AdminUsersComponent implements OnInit {
 
 
 
- 
-
-
-
-
-
 
   ngOnInit(): void {
     // this.getAllUsers();
@@ -37,19 +31,30 @@ export class AdminUsersComponent implements OnInit {
     });
   }
 
-  // getAllUsers() {
-  //   this.loading = true;
-  //   this.userService.getAllUsers().subscribe({
-  //     next: (data: User[]) => {
-  //       this.users = data;
-  //       this.loading = false;
-  //     },
-  //     error: (err) => {
-  //       console.error('❌ Error al cargar usuarios:', err);
-  //       this.errorMessage = 'No se pudieron cargar los usuarios. Intente más tarde.';
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
+    // Cuando hacemos clic en Editar
+    onUserEdit(user: User): void {
+      this.selectedUser = { ...user }; // Clonamos para evitar modificar la tabla directamente
+    }
+
+    onSaveUser(user: User): void {
+      this.userService.updateUser(user).subscribe(() => {
+        this.getUsers(); // Actualizamos lista
+        this.selectedUser = null;
+      });
+    }
+
+      // Cuando cerramos el modal sin guardar
+  onCloseModal(): void {
+    this.selectedUser = null;
+  }
+
+
+    // Recarga de usuarios
+    private getUsers(): void {
+      this.userService.getAllUsers().subscribe({
+        next: (data) => this.users = data,
+        error: (err) => console.error('❌ Error al cargar usuarios', err)
+      });
+    }
 
 }
