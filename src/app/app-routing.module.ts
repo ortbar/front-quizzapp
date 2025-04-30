@@ -13,7 +13,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: AdminDashboardComponent, canActivate:[AuthGuardGuard],
     children: [
-       { path: 'users', component: AdminUsersComponent }
+       { path: 'users', component: AdminUsersComponent },
+       
       ]
   },  
   {path: 'user-dashboard', component: UserDashboardComponent, canActivate:[UserGuardGuard]},

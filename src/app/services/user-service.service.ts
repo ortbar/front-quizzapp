@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user/user.model';
+import { error } from 'console';
+import { ApiErrorResponse } from '../models/auth/api-error-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +21,24 @@ export class UserServiceService {
 
   updateUser(user: User): Observable<User> {
     return this.http.put<User>(
-      `${this.apiUrl}/admin/users/updateUser/${user.id}`,
-      user
-    );
+      `${this.apiUrl}/admin/users/updateUser/${user.id}`,user).pipe(
+        catchError((error: HttpErrorResponse) => {
+          const apiError = error.error as ApiErrorResponse;
+
+          const message = apiError?.message || 'Error actualizando usuario';
+
+          return throwError(() => new Error(message));
+        }
+      )
+      )
   }
 
 
-
-
 }
+
+
+
+
+
+
+

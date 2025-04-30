@@ -16,6 +16,7 @@ import { LayoutComponent } from './components/pages/shared/layout/layout.compone
 import { SidebarComponent } from './components/pages/shared/siderbar/sidebar/sidebar.component';
 import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-users.component';
 import { UserTableComponent } from './components/pages/admin/user-table/user-table.component';
+import { UserEditModalComponent } from './components/pages/admin/user-edit-modal/user-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { UserTableComponent } from './components/pages/admin/user-table/user-tab
     SidebarComponent,
     AdminUsersComponent,
     UserTableComponent,
+    UserEditModalComponent,
    
    
     

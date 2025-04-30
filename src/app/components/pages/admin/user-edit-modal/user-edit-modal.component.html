@@ -1,6 +1,7 @@
-<div class="fixed-modal">
+<div class="fixed-modal" *ngIf="user">
     <div class="modal-content">
       <h4>Editar Usuario</h4>
+
   
       <label class="form-field">
         Username:
@@ -11,13 +12,25 @@
         Email:
         <input [(ngModel)]="user.email" />
       </label>
+      <label class="form-field">
+        Password:
+        <input [(ngModel)]="user.password" />
+        
+      </label>
   
       <label class="form-field">
         Rol:
-        <select [(ngModel)]="user.roles">
-          <option value="USER">USER</option>
-          <option value="ADMIN">ADMIN</option>
-        </select>
+        <div *ngFor="let role of availableRoles">
+          <label>
+            <input
+              type="checkbox"
+              [value]="role"
+              [checked]="user.roles.includes(role)"
+              (change)="onRoleChange($event, role)"
+            />
+            {{ role }}
+          </label>
+        </div>
       </label>
   
       <label class="form-field">
@@ -29,6 +42,15 @@
         <button (click)="onSave()">Guardar</button>
         <button (click)="onClose()">Cancelar</button>
       </div>
+      <div *ngIf="successMessage" class="success-banner">
+        {{ successMessage }}
+      </div>
+      
+      <div *ngIf="errorMessage" class="error-banner">
+        {{ errorMessage }}
+      </div>
+
     </div>
   </div>
+
   

@@ -35,5 +35,32 @@
   gap: 1rem;
 }
 
+.success-banner {
+  background-color: #ddffdd;
+  color: #007a00;
+  border: 1px solid #007a00;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+.error-banner {
+  background-color: #ffdddd;
+  color: #a10000;
+  border: 1px solid #a10000;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+.role-select {
+  height: auto;
+  max-height: 80px; /* Limita la altura total */
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+}
+
+
 
 
