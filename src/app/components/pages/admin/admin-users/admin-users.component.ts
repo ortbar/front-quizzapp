@@ -59,6 +59,19 @@ export class AdminUsersComponent implements OnInit {
       });
     }
 
+    onDeleteUser(user: User): void {
+      // Aquí llamas al servicio para eliminarlo en backend
+      this.userService.deleteUser(user.id).subscribe(
+        () => {
+          // Actualiza la lista local de usuarios, por ejemplo filtrando:
+          this.users = this.users.filter(u => u.id !== user.id);
+        },
+        error => {
+          console.error('Error al eliminar usuario:', error);
+        }
+      );
+    }
+
       // Cuando cerramos el modal sin guardar
   onCloseModal(): void {
     this.selectedUser = null;
@@ -72,5 +85,7 @@ export class AdminUsersComponent implements OnInit {
         error: (err) => console.error('❌ Error al cargar usuarios', err)
       });
     }
+
+
 
 }

@@ -1,4 +1,8 @@
-import { NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
+import { LucideAngularModule, Eye, EyeOff, LucideEye } from 'lucide-angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +22,7 @@ import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-
 import { UserTableComponent } from './components/pages/admin/user-table/user-table.component';
 import { UserEditModalComponent } from './components/pages/admin/user-edit-modal/user-edit-modal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +35,8 @@ import { UserEditModalComponent } from './components/pages/admin/user-edit-modal
     AdminUsersComponent,
     UserTableComponent,
     UserEditModalComponent,
+    
+    
    
    
     
@@ -42,7 +49,9 @@ import { UserEditModalComponent } from './components/pages/admin/user-edit-modal
     FormsModule,
     AppRoutingModule,  // Solo una vez
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LucideAngularModule.pick({Eye, EyeOff}),
+    
    
   
 
@@ -56,6 +65,7 @@ import { UserEditModalComponent } from './components/pages/admin/user-edit-modal
       multi: true
     }
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

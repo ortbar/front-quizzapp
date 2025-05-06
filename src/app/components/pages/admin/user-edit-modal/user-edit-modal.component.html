@@ -1,4 +1,4 @@
-<div class="fixed-modal" *ngIf="user">
+<!-- <div class="fixed-modal" *ngIf="user">
     <div class="modal-content">
       <h4>Editar Usuario</h4>
 
@@ -51,6 +51,85 @@
       </div>
 
     </div>
+  </div> -->
+  <div class="fixed-modal" *ngIf="user">
+    <div class="modal-content" [formGroup]="form">
+  
+      <label class="form-field">
+        Username:
+        <input formControlName="username" />
+        <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
+          Campo requerido
+        </div>
+        <div *ngIf="form.get('username')?.errors?.['minlength'] && form.get('username')?.touched" class="error">
+          El username debe tener al menos 5 caracteres.
+        </div>
+        <div *ngIf="form.get('username')?.errors?.['maxlength'] && form.get('username')?.touched" class="error">
+          El username no puede superar los 10 caracteres.
+        </div>
+
+        
+      </label>
+  
+      <label class="form-field">
+        Email:
+        <input formControlName="email" />
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+          Email inválido
+        </div>
+      </label>
+  
+      <label class="form-field">
+        Password:
+        <div style="display: flex; align-items: center;">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" style="flex: 1;" />
+          <button type="button" (click)="togglePasswordVisibility()" style="margin-left: 8px;" class="password-toggle-btn">
+            {{ showPassword ? '🙈' : '👁️' }}
+          </button>
+        </div>
+        <div *ngIf="form.get('password')?.errors?.['minlength'] && form.get('password')?.touched" class="error">
+          Password no válida. Mínimo 5 caracteres
+        </div>
+        <div *ngIf="form.get('password')?.errors?.['maxlength'] && form.get('password')?.touched" class="error">
+          La contraseña no puede tener más de 10 caracteres.
+        </div>
+
+
+      </label>
+  
+      <label class="form-field">
+        Rol:
+        <div formArrayName="roles">
+          <div *ngFor="let role of availableRoles; let i = index">
+            <label>
+              <input type="checkbox" [formControlName]="i" />
+              {{ role }}
+            </label>
+          </div>
+        </div>
+        <div *ngIf="rolesFormArray.invalid && form.touched" class="error">
+          Debes seleccionar al menos un rol.
+        </div>
+      </label>
+  
+      <label class="form-field">
+        Activo:
+        <input type="checkbox" formControlName="enabled" />
+      </label>
+  
+      <div class="modal-actions">
+        <button (click)="onSave()">Guardar</button>
+        <button (click)="onClose()">Cancelar</button>
+      </div>
+  
+      <div *ngIf="successMessage" class="success-banner">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="error-banner">
+        {{ errorMessage }}
+      </div>
+    </div>
   </div>
+  
 
   

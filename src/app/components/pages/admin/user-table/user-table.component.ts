@@ -14,8 +14,11 @@ export class UserTableComponent implements OnInit {
   // se reciben datos desde admin-users
   @Input() users: User[] = [];
 
-  // se emiten datos (el usuario a editar..)
+  // se emiten datos al comp padre (el usuario a editar..)
   @Output() editUser = new EventEmitter<User>();
+
+   // se emiten datos al comp padre (el usuario a eliminar..)
+  @Output() deleteUser = new EventEmitter<User>();
 
 
   constructor() { }
@@ -31,9 +34,14 @@ export class UserTableComponent implements OnInit {
     this.editUser.emit(user);
   }
 
+  onDelete(user: User): void {
+    const confirmed = confirm(`¿Estás seguro de que quieres eliminar al usuario ${user.username}?`);
+    if (confirmed) {
+      this.deleteUser.emit(user);
+    }
+  }
 
-  // onDelete(user){
 
-  // }
+
 
 }

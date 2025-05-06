@@ -44,6 +44,15 @@
   border-radius: 4px;
 }
 
+.password-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 1.2rem; /* ajusta el tamaño del emoji/icono si quieres */
+}
+
 .error-banner {
   background-color: #ffdddd;
   color: #a10000;
@@ -60,6 +69,29 @@
   padding: 6px;
   font-size: 14px;
 }
+
+/* Estilos para mensajes de error debajo de inputs */
+.error {
+  color: #a10000;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Estilo específico para campos de username y email */
+.form-field input.ng-invalid.ng-touched {
+  border-color: #a10000;
+  background-color: #fff0f0;
+}
+
+/* Estilo específico para el bloque de roles cuando hay error */
+.form-field div[formArrayName="roles"].ng-invalid.ng-touched {
+  border: 1px solid #a10000;
+  padding: 0.5rem;
+  background-color: #fff0f0;
+  border-radius: 4px;
+}
+
 
 
 

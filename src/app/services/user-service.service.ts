@@ -33,6 +33,16 @@ export class UserServiceService {
       )
   }
 
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/admin/users/deleteUser/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        const apiError = error.error as ApiErrorResponse;
+        const message = apiError?.message || 'Error eliminando usuario';
+        return throwError(() => new Error(message));
+      })
+    );
+  }
+
 
 }
 
