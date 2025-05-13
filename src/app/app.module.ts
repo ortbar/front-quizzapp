@@ -21,6 +21,10 @@ import { SidebarComponent } from './components/pages/shared/siderbar/sidebar/sid
 import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-users.component';
 import { UserTableComponent } from './components/pages/admin/user-table/user-table.component';
 import { UserEditModalComponent } from './components/pages/admin/user-edit-modal/user-edit-modal.component';
+import { AdminQuestionsComponent } from './components/pages/admin/admin-questions/admin-questions/admin-questions.component';
+import { QuestionTableComponent } from './components/pages/admin/question-table/question-table.component';
+import { QuestionEditModalComponent } from './components/pages/admin/question-edit-modal/question-edit-modal.component';
+
 
 
 @NgModule({
@@ -35,6 +39,10 @@ import { UserEditModalComponent } from './components/pages/admin/user-edit-modal
     AdminUsersComponent,
     UserTableComponent,
     UserEditModalComponent,
+    AdminQuestionsComponent,
+    QuestionTableComponent,
+    QuestionEditModalComponent
+  
     
     
    

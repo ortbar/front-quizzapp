@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   /* si no quieres sombra de fondo, no pongas background */
-  z-index: 1000;
+ 
 }
 
 .modal-content {

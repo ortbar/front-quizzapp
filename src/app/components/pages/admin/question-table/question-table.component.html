@@ -1,0 +1,30 @@
+<p>question-table works!</p>
+
+<!-- question-table.component.html -->
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Pregunta</th>
+        <th>Respuestas</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let q of questions">
+        <td>{{ q.id }}</td>
+        <td>{{ q.textoPregunta }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let a of q.answers">{{ a.textoRespuesta }} ({{ a.esCorrecta ? 'Correcta' : 'Incorrecta' }})</li>
+          </ul>
+        </td>
+        <td>
+            <button (click)="onEdit(q)">Editar</button>
+          <button (click)="onDelete(q)">Eliminar</button> 
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

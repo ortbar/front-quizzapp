@@ -1,0 +1,18 @@
+<p>admin-questions works!</p>
+
+<h2>👥 Gestión de Preguntas</h2>
+<app-question-table
+  [questions]="questions" 
+  (edit)="onEditQuestion($event)" 
+  (delete)="onDeleteQuestion($event)">
+</app-question-table>
+
+<app-question-edit-modal
+  [question]="selectedQuestion"
+  [visible]="modalVisible"
+  (saveQuestion)="onSaveQuestion($event)"
+  (close)="onCloseModal()">
+</app-question-edit-modal>
+
+<button (click)="onCreateQuestion()">Crear nueva pregunta</button>
+

@@ -2,27 +2,18 @@
 
 <div class="admin-users">
 
-    <h2>👥 Gestión de Usuarios</h2>
-    <app-user-table
-     [users]="users"
-     (editUser)="onUserEdit($event)"
-     (deleteUser)="onDeleteUser($event)">
-     
-    </app-user-table>
+  <h2>👥 Gestión de Usuarios</h2>
+  <app-user-table
+    [users]="users"
+    (editUser)="onUserEdit($event)"
+    (deleteUser)="onDeleteUser($event)">
+  </app-user-table>
 
-    <!-- Modal de edición -->
-<app-user-edit-modal
-*ngIf="selectedUser"
-[user]="selectedUser"
-(save)="onSaveUser($event)"
-(close)="onCloseModal()"
-></app-user-edit-modal>
+  <!-- Modal de edición -->
+  <app-user-edit-modal *ngIf="selectedUser"
+    [user]="selectedUser"
+    (save)="onSaveUser($event)"
+    (close)="onCloseModal()">
+  </app-user-edit-modal>
 
-
-
-
-  
-
-  
-  </div>
-  
+</div>

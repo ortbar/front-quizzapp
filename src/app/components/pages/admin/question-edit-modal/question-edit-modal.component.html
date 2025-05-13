@@ -1,0 +1,27 @@
+<div class="modal-overlay" *ngIf="visible">
+  <div class="modal-content">
+    <h2>{{ question ? 'Editar pregunta' : 'Crear nueva pregunta' }}</h2>
+
+    <label>Texto de la pregunta:</label>
+    <input [(ngModel)]="localQuestion.textoPregunta" />
+
+    <h3>Respuestas:</h3>
+    <ul>
+      <li *ngFor="let answer of localQuestion.answers; let i = index">
+        <input [(ngModel)]="answer.textoRespuesta" placeholder="Texto de respuesta" />
+        <label>
+          Correcta:
+          <input type="checkbox" [(ngModel)]="answer.esCorrecta" />
+        </label>
+        <button (click)="removeAnswer(i)">Eliminar</button>
+      </li>
+    </ul>
+
+    <button (click)="addAnswer()">Agregar respuesta</button>
+    <br /><br />
+    <div class="modal-actions">
+      <button (click)="onSave()">{{ question ? 'Actualizar' : 'Crear' }}</button>
+      <button (click)="onClose()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
 import { UserGuardGuard } from './guard/user-guard.guard';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-users.component';
+import { AdminQuestionsComponent } from './components/pages/admin/admin-questions/admin-questions/admin-questions.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponentComponent},
@@ -14,7 +15,7 @@ const routes: Routes = [
   {path: 'admin', component: AdminDashboardComponent, canActivate:[AuthGuardGuard],
     children: [
        { path: 'users', component: AdminUsersComponent },
-       
+       { path: 'questions', component: AdminQuestionsComponent}
       ]
   },  
   {path: 'user-dashboard', component: UserDashboardComponent, canActivate:[UserGuardGuard]},
