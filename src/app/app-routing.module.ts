@@ -8,17 +8,24 @@ import { UserGuardGuard } from './guard/user-guard.guard';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-users.component';
 import { AdminQuestionsComponent } from './components/pages/admin/admin-questions/admin-questions/admin-questions.component';
+import { EditUserProfileComponent } from './components/pages/edit-user-profile/edit-user-profile/edit-user-profile.component';
+import { Edit } from 'lucide-angular';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponentComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: AdminDashboardComponent, canActivate:[AuthGuardGuard],
     children: [
+       { path: 'edit-user', component: EditUserProfileComponent},
        { path: 'users', component: AdminUsersComponent },
        { path: 'questions', component: AdminQuestionsComponent}
       ]
   },  
-  {path: 'user-dashboard', component: UserDashboardComponent, canActivate:[UserGuardGuard]},
+  {path: 'user-dashboard', component: UserDashboardComponent, canActivate:[UserGuardGuard],
+    children: [
+      { path: 'edit-user', component: EditUserProfileComponent}
+    ]
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' } 
 ];

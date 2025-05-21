@@ -1,5 +1,5 @@
 export interface Answer {
     id: number;
-    textoRespuesta: string;
+    answerText: string;
     esCorrecta: boolean;
   }

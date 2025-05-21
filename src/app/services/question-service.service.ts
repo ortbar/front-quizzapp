@@ -40,7 +40,7 @@ export class QuestionServiceService {
   }
 
     deleteQuestion(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/admin/questions/delete/${id}`)
+    return this.http.delete<void>(`${this.apiUrl}/admin/questions/deleteQuestion/${id}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           const apiError = error.error as ApiErrorResponse;

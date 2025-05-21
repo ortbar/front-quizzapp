@@ -1,32 +1,35 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div class="register-container">
+  <h2>Registro</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
     <label>Usuario:</label>
-    <input formControlName="username">
+    <input formControlName="username" type="text">
     <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
-      <div *ngIf="registerForm.get('username')?.errors?.['required']">
+      <div *ngIf="registerForm.get('username')?.errors?.['required']" class="text-danger">
         El usuario es obligatorio.
       </div>
-      <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
+      <div *ngIf="registerForm.get('username')?.errors?.['minlength']" class="text-danger">
         Debe tener al menos 6 caracteres.
       </div>
     </div>
-  
+
     <label>Contraseña:</label>
     <input type="password" formControlName="password">
     <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-      <div *ngIf="registerForm.get('password')?.errors?.['required']">
+      <div *ngIf="registerForm.get('password')?.errors?.['required']" class="text-danger">
         La contraseña es obligatoria.
       </div>
-      <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+      <div *ngIf="registerForm.get('password')?.errors?.['minlength']" class="text-danger">
         Debe tener al menos 6 caracteres.
       </div>
     </div>
-  
-    <div *ngIf="backendErrorMessage" style="color: red;">
+
+    <div *ngIf="backendErrorMessage" class="backend-error">
       {{ backendErrorMessage }}
     </div>
-  
-    <button type="submit">Registrarme</button>
-  
+
+    <button type="submit" [disabled]="registerForm.invalid">Registrarme</button>
+
   </form>
-  
+</div>

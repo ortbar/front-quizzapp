@@ -1,27 +1,46 @@
 <div class="modal-overlay" *ngIf="visible">
-  <div class="modal-content">
+  <div class="modal-content" [formGroup]="questionForm">
     <h2>{{ question ? 'Editar pregunta' : 'Crear nueva pregunta' }}</h2>
 
     <label>Texto de la pregunta:</label>
-    <input [(ngModel)]="localQuestion.textoPregunta" />
+    <input formControlName="textoPregunta" />
+    <div *ngIf="questionForm.get('textoPregunta')?.invalid && questionForm.get('textoPregunta')?.touched" class="error">
+      La pregunta es obligatoria
+    </div>
 
     <h3>Respuestas:</h3>
-    <ul>
-      <li *ngFor="let answer of localQuestion.answers; let i = index">
-        <input [(ngModel)]="answer.textoRespuesta" placeholder="Texto de respuesta" />
+    <ul formArrayName="answers">
+      <li *ngFor="let answer of answers.controls; let i = index" [formGroupName]="i">
+        <input formControlName="answerText" placeholder="Texto de respuesta" />
         <label>
           Correcta:
-          <input type="checkbox" [(ngModel)]="answer.esCorrecta" />
+          <input type="checkbox" formControlName="esCorrecta" />
         </label>
-        <button (click)="removeAnswer(i)">Eliminar</button>
+        
+        <button type="button" (click)="removeAnswer(i)" [disabled]="answers.length <= 3">Eliminar</button>
+
+        <div *ngIf="answer.get('answerText')?.invalid && answer.get('answerText')?.touched" class="error">
+          La respuesta no puede estar vacía
+        </div>
       </li>
     </ul>
+    
 
-    <button (click)="addAnswer()">Agregar respuesta</button>
-    <br /><br />
+    <div *ngIf="!hasCorrectAnswer() && answers.length > 0" class="error">
+      Debe marcarse una única respuesta como correcta
+    </div>
+
+    <div *ngIf="answers.length < 3" class="error">
+      Debe haber exactamente 3 respuestas
+    </div>
+
+    <button type="button" (click)="addAnswer()" [disabled]="answers.length >= 3">
+      Agregar respuesta
+    </button>
+
     <div class="modal-actions">
-      <button (click)="onSave()">{{ question ? 'Actualizar' : 'Crear' }}</button>
-      <button (click)="onClose()">Cancelar</button>
+      <button type="button" (click)="onSave()" [disabled]="questionForm.invalid">Guardar</button>
+      <button type="button" (click)="onClose()">Cancelar</button>
     </div>
   </div>
 </div>

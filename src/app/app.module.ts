@@ -24,6 +24,7 @@ import { UserEditModalComponent } from './components/pages/admin/user-edit-modal
 import { AdminQuestionsComponent } from './components/pages/admin/admin-questions/admin-questions/admin-questions.component';
 import { QuestionTableComponent } from './components/pages/admin/question-table/question-table.component';
 import { QuestionEditModalComponent } from './components/pages/admin/question-edit-modal/question-edit-modal.component';
+import { EditUserProfileComponent } from './components/pages/edit-user-profile/edit-user-profile/edit-user-profile.component';
 
 
 
@@ -41,7 +42,8 @@ import { QuestionEditModalComponent } from './components/pages/admin/question-ed
     UserEditModalComponent,
     AdminQuestionsComponent,
     QuestionTableComponent,
-    QuestionEditModalComponent
+    QuestionEditModalComponent,
+    EditUserProfileComponent
   
     
     

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user/user.model';
 import { error } from 'console';
 import { ApiErrorResponse } from '../models/auth/api-error-response';
+import { UserProfileUpdateDTO } from '../models/user/UserProfileUpdate.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,35 @@ export class UserServiceService {
         return throwError(() => new Error(message));
       })
     );
+  }
+
+  // editProfile(user: UserProfileUpdateDTO): Observable<UserProfileUpdateDTO> {
+  //   return this.http.put<UserProfileUpdateDTO>
+
+  // }
+
+    private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('jwt');
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
+    getUserProfile(): Observable<UserProfileUpdateDTO> {
+    return this.http.get<UserProfileUpdateDTO>(`${this.apiUrl}/api/user/profile`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+    updateUserProfile(user: Partial<UserProfileUpdateDTO>): Observable<UserProfileUpdateDTO> {
+    return this.http.put<UserProfileUpdateDTO>(`${this.apiUrl}/api/user/edit-profile`, user, {
+      headers: this.getAuthHeaders()
+    }).
+    pipe(
+      catchError((error: HttpErrorResponse) => {
+          const apiError = error.error as ApiErrorResponse;
+           return throwError(() => apiError); 
+          
+        })
+      );
   }
 
 

@@ -18,6 +18,64 @@
   width: 90%;
   max-width: 500px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2, .modal-content h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+ul[formArrayName="answers"] {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+ul[formArrayName="answers"] li {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+ul[formArrayName="answers"] li label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+ul[formArrayName="answers"] li button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+ul[formArrayName="answers"] li button:hover {
+  background-color: #c0392b;
 }
 
 .modal-actions {
@@ -27,8 +85,32 @@
   gap: 1rem;
 }
 
-input[type="text"],
-input[type="checkbox"] {
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+.modal-actions button,
+button[type="button"] {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #2980b9;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.modal-actions button:hover,
+button[type="button"]:hover {
+  background-color: #3498db;
+}
+
+/* Estilo de errores */
+.error {
+  color: #a10000;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: #a10000;
+  background-color: #fff0f0;
 }

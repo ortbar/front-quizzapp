@@ -1,0 +1,50 @@
+
+
+
+<form  *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <label>Email:
+    <input formControlName="email" type="email" />
+  </label>
+    <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
+    <small *ngIf="profileForm.get('email')?.errors?.['required']">Email es obligatorio.</small>
+    <small *ngIf="profileForm.get('email')?.errors?.['email']">Formato de email inválido.</small>
+  </div>
+  <br />
+  <label>Username:
+    <input formControlName="username" type="text" />
+  </label>
+    <div *ngIf="profileForm.get('username')?.touched && profileForm.get('username')?.invalid">
+    <small *ngIf="profileForm.get('username')?.errors?.['required']">Username es obligatorio.</small>
+    <small *ngIf="profileForm.get('username')?.errors?.['minlength']">Mínimo 5 caracteres.</small>
+    <small *ngIf="profileForm.get('username')?.errors?.['maxlength']">Máximo 10 caracteres.</small>
+  </div>
+  
+  <br />
+  <label>Nueva contraseña:
+<div class="password-container">
+  <input 
+    [type]="showPassword ? 'text' : 'password'"
+    formControlName="password"
+    id="password"
+  />
+  <button 
+    type="button" 
+    (click)="togglePasswordVisibility()" 
+    class="password-toggle-btn"
+    aria-label="Mostrar/Ocultar contraseña"
+  >
+    {{ showPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
+  </label>
+    <div *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.invalid">
+    <small *ngIf="profileForm.get('password')?.errors?.['minlength']">Mínimo 5 caracteres.</small>
+    <small *ngIf="profileForm.get('password')?.errors?.['maxlength']">Máximo 10 caracteres.</small>
+  </div>
+  <br />
+  <button type="submit" [disabled]="profileForm.invalid">Actualizar</button>
+</form>
+
+<div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+

@@ -1,20 +1,20 @@
 <nav class="sidebar">
   <ul *ngIf="userRole === 'USER'">
-    <li><a routerLink="/user-dashboard">Dashboard</a></li>
+    <li><a routerLink="/user-dashboard">Home</a></li>
     <!-- <li><a routerLink="/jugar">Jugar</a></li> -->
-    <li><a routerLink="/estadisticas">Mis estadísticas</a></li>
+    <li><a routerLink="/estadisticas">Estadísticas</a></li>
     <li><a routerLink="/ranking">Ranking</a></li>
-    <li><a routerLink="/editar-perfil">Editar perfil</a></li>
-    <li><a (click)="logout()">Cerrar sesión</a></li>
+    <li><a routerLink="edit-user">Profile</a></li>
+    <li><a (click)="logout()">Logout</a></li>
   </ul>
 
   <ul *ngIf="userRole === 'ADMIN'">
-    <li><a routerLink="/admin">Dashboard Admin</a></li>
-    <li><a routerLink="users">Gestionar usuarios</a></li>
-    <li><a routerLink="questions">Gestionar preguntas</a></li>
+    <li><a routerLink="/admin">Home</a></li>
+    <li><a routerLink="users">Usuarios</a></li>
+    <li><a routerLink="questions">Preguntas</a></li>
     <li><a routerLink="/estadisticas">Estadísticas generales</a></li>
     <!-- <li><a routerLink="/ranking">Ranking</a></li> -->
-    <li><a routerLink="/editar-perfil">Editar perfil</a></li>
-    <li><a (click)="logout()">Cerrar sesión</a></li>
+    <li><a routerLink="edit-user">Profile</a></li>
+    <li><a (click)="logout()">Logout</a></li>
   </ul>
 </nav>
