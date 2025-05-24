@@ -13,7 +13,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class LayoutComponent implements OnInit {
 
- constructor(private authService: AuthService, private router: Router,private userService: UserServiceService) {}
+ constructor(private authService: AuthService, public router: Router,private userService: UserServiceService) {}
 
  welcomeMessage = "";
 

@@ -25,6 +25,7 @@ import { AdminQuestionsComponent } from './components/pages/admin/admin-question
 import { QuestionTableComponent } from './components/pages/admin/question-table/question-table.component';
 import { QuestionEditModalComponent } from './components/pages/admin/question-edit-modal/question-edit-modal.component';
 import { EditUserProfileComponent } from './components/pages/edit-user-profile/edit-user-profile/edit-user-profile.component';
+import { GameComponent } from './components/pages/game/game/game.component';
 
 
 
@@ -43,7 +44,8 @@ import { EditUserProfileComponent } from './components/pages/edit-user-profile/e
     AdminQuestionsComponent,
     QuestionTableComponent,
     QuestionEditModalComponent,
-    EditUserProfileComponent
+    EditUserProfileComponent,
+    GameComponent
   
     
     

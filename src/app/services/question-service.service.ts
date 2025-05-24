@@ -50,6 +50,10 @@ export class QuestionServiceService {
       );
   }
 
+    getRandomQuestions(count: number = 10): Observable<Question[]> {
+    return this.http.get<Question[]>(`${this.apiUrl}/admin/questions/random?count=${count}`);
+  }
+
 
 
 

@@ -20,7 +20,7 @@ export class UserGuardGuard implements CanActivate {
         return false; // permite acceso si usuario autenticado (tiene token)
       } 
 
-      if (this.authService.hasRole('USER')) {
+      if (this.authService.hasRole('USER') || this.authService.hasRole('ADMIN')) {
         return true;
       }
   

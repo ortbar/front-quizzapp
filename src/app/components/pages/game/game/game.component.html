@@ -1,0 +1,47 @@
+<!-- GAME SCREEN -->
+<div class="game-container" *ngIf="currentQuestion && !isGameFinished">
+  <h2 class="question-title">Pregunta {{ currentQuestionIndex + 1 }}/10</h2>
+
+  <div class="question-text">
+    {{ currentQuestion.textoPregunta }}
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress" [style.width.%]="(timer / totalTime) * 100"></div>
+  </div>
+  <div class="timer">
+    ⏱ Tiempo restante: {{ timer }}s
+  </div>
+
+  <div class="answers">
+    <button 
+      *ngFor="let answer of currentQuestion.answers" 
+      (click)="selectAnswer(answer.id)"
+      [disabled]="isAnswerSubmitted"
+      [ngClass]="{
+        'correct': isAnswerSubmitted && answer.esCorrecta,
+        'incorrect': isAnswerSubmitted && selectedAnswerId === answer.id && !answer.esCorrecta
+      }"
+      class="answer-btn">
+      {{ answer.answerText }}
+    </button>
+  </div>
+
+  <div *ngIf="isAnswerSubmitted" class="feedback">
+    {{ feedbackMessage }}
+  </div>
+</div>
+
+<!-- GAME FINISHED SCREEN -->
+<div *ngIf="isGameFinished" class="final-screen">
+  <div class="final-card">
+    <h2>🎉 ¡Juego terminado!</h2>
+    <p><strong>{{ username }}</strong>, tu puntuación final fue:</p>
+    <h1 class="score">{{ score }}</h1>
+
+    <div class="actions">
+      <button routerLink="/ranking" class="action-btn">Ver Ranking</button>
+      <button (click)="reiniciarJuego()" class="action-btn">Jugar de nuevo</button>
+    </div>
+  </div>
+</div>

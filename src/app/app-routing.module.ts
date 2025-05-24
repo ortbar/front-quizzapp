@@ -10,10 +10,12 @@ import { AdminUsersComponent } from './components/pages/admin/admin-users/admin-
 import { AdminQuestionsComponent } from './components/pages/admin/admin-questions/admin-questions/admin-questions.component';
 import { EditUserProfileComponent } from './components/pages/edit-user-profile/edit-user-profile/edit-user-profile.component';
 import { Edit } from 'lucide-angular';
+import { GameComponent } from './components/pages/game/game/game.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponentComponent},
   {path: 'register', component: RegisterComponent},
+  {path:'juego', component: GameComponent, canActivate:[UserGuardGuard]},
   {path: 'admin', component: AdminDashboardComponent, canActivate:[AuthGuardGuard],
     children: [
        { path: 'edit-user', component: EditUserProfileComponent},
