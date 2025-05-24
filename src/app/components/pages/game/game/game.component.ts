@@ -106,10 +106,9 @@ goToNextQuestion(): void {
     this.currentQuestion = this.questions[this.currentQuestionIndex];
     this.startTimer(); // Reiniciar el temporizador para la nueva pregunta
   } else {
-    // Aquí puedes manejar el fin del juego
-    // Por ejemplo: guardar la partida, navegar a resultados, mostrar resumen...
+    
     console.log('Juego finalizado. Puntuación:', this.score);
-    // clearInterval just in case
+ 
     clearInterval(this.timerInterval);
     this.isGameFinished = true;
 
@@ -143,25 +142,6 @@ goToNextQuestion(): void {
 
 
 
-// finalizeGame(): void {
-//   clearInterval(this.timerInterval);
 
-//   const gameData = {
-//     userId: this.userId, // O usa el userId que ya tengas en el login
-//     score: this.score,
-//     createdAt: new Date(),
-//     answers: this.userAnswers.map(ans => ({
-//       questionId: ans.questionId,
-//       selectedAnswerId: ans.selectedAnswerId
-//     }))
-//   };
-
-//   this.gameService.saveGame(gameData).subscribe(saved => {
-//     console.log('Juego guardado', saved);
-//     this.router.navigate(['/resultado'], { queryParams: { score: saved.score } });
-//   });
-// }
-
-// 
 
 
