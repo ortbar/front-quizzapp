@@ -15,6 +15,19 @@ export class AdminQuestionsComponent implements OnInit {
   constructor(private service: QuestionServiceService) { }
 
   questions: Question[]= [];
+ 
+  //paginacion
+
+  // pageSizeOptions: number[] = [5, 10, 20];
+
+ 
+  currentPage = 0;
+  pageSize = 5;
+
+  totalPages = 0;
+  totalElements = 0;
+
+
 
   selectedQuestion: Question | null = null;
 
@@ -63,7 +76,40 @@ onCloseModal(): void {
 
 
 loadQuestions(): void {
-  this.service.getAllQuestions().subscribe(data => this.questions = data);
+  this.service.getPaginatedQuestions(this.currentPage, this.pageSize).subscribe(response => {
+    this.questions = response.content;
+    this.totalPages = response.totalPages;
+    this.totalElements = response.totalElements;
+    this.currentPage = response.number;
+  });
+}
+
+// metodos para cambiar d pagina
+
+onPageSizeChange(): void {
+  this.currentPage = 0; // Reseteamos a la primera página
+  this.loadQuestions(); // Volvemos a cargar
+}
+
+goToPage(page: number): void {
+  if (page >= 0 && page < this.totalPages) {
+    this.currentPage = page;
+    this.loadQuestions();
+  }
+}
+
+nextPage(): void {
+  if (this.currentPage < this.totalPages - 1) {
+    this.currentPage++;
+    this.loadQuestions();
+  }
+}
+
+previousPage(): void {
+  if (this.currentPage > 0) {
+    this.currentPage--;
+    this.loadQuestions();
+  }
 }
   
 
@@ -71,6 +117,14 @@ loadQuestions(): void {
 
 ngOnInit(): void {
   this.loadQuestions();
+
+}
+
+
+
+
+
+
 }
 
 
@@ -81,4 +135,4 @@ ngOnInit(): void {
 
 
 
-}
+

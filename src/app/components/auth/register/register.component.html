@@ -13,6 +13,16 @@
         Debe tener al menos 6 caracteres.
       </div>
     </div>
+        <label>Email:</label>
+    <input formControlName="email" type="email">
+    <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+      <div *ngIf="registerForm.get('email')?.errors?.['required']" class="text-danger">
+        El email es obligatorio.
+      </div>
+      <div *ngIf="registerForm.get('email')?.errors?.['email']" class="text-danger">
+        Por favor ingresa un email válido.
+      </div>
+    </div>
 
     <label>Contraseña:</label>
     <input type="password" formControlName="password">

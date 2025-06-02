@@ -14,6 +14,9 @@ export class QuestionTableComponent implements OnInit {
   @Output() edit = new EventEmitter<Question>();
   @Output() delete = new EventEmitter<Question>();
 
+  
+
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Question } from '../models/question/question.model';
 import { ApiErrorResponse } from '../models/auth/api-error-response';
+import { PaginatedResponse } from '../models/question/paginatedQuestionResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,15 @@ export class QuestionServiceService {
 
   getAllQuestions(): Observable<Question[]>{
     return this.http.get<Question[]>(`${this.apiUrl}/admin/questions/AllQuestion`);
+  }
+
+  getPaginatedQuestions(page:number, size:number): Observable<PaginatedResponse<Question>> {
+    const params = new HttpParams()
+      .set('page',page)
+      .set('size',size);
+    
+    return this.http.get<PaginatedResponse<Question>>(`${this.apiUrl}/admin/questions/AllPaginatedQuestion`, {params})
+
   }
 
   createQuestion(question:Question): Observable<Question> {
