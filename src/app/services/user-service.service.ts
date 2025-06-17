@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user/user.model';
 import { error } from 'console';
 import { ApiErrorResponse } from '../models/auth/api-error-response';
 import { UserProfileUpdateDTO } from '../models/user/UserProfileUpdate.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserServiceService {
 
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/admin/users/findAll`);
@@ -60,25 +61,34 @@ export class UserServiceService {
     });
   }
 
-    updateUserProfile(user: Partial<UserProfileUpdateDTO>): Observable<UserProfileUpdateDTO> {
-    return this.http.put<UserProfileUpdateDTO>(`${this.apiUrl}/api/user/edit-profile`, user, {
-      headers: this.getAuthHeaders()
-    }).
-    pipe(
-      catchError((error: HttpErrorResponse) => {
-          const apiError = error.error as ApiErrorResponse;
-           return throwError(() => apiError); 
-          
-        })
-      );
-  }
-
-
+updateUserProfile(user: Partial<UserProfileUpdateDTO>): Observable<UserProfileUpdateDTO> {
+  return this.http.put<UserProfileUpdateDTO>(
+    `${this.apiUrl}/api/user/edit-profile`,
+    user,
+    {
+      headers: this.getAuthHeaders(),
+      observe: 'response'  // importante para acceder a headers
+    }
+  ).pipe(
+    map(response => {
+      const newToken = response.headers.get('Authorization');
+      
+  if (newToken?.startsWith('Bearer ')) {
+    const token = newToken.replace('Bearer ', '');
+    localStorage.setItem('jwt', token);
+    console.log('nuevo token', token)
+    
+    this.authService.setCurrentUserFromToken(token);
+      }
+      return response.body!;
+    }),
+    catchError((error: HttpErrorResponse) => {
+      const apiError = error.error as ApiErrorResponse;
+      return throwError(() => apiError);
+    })
+  );
 }
 
 
 
-
-
-
-
+}

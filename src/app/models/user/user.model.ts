@@ -9,4 +9,5 @@ export interface User {
     accountNotLocked: boolean;
     credentialNotExpired: boolean;
     createdAt: Date;
+    token?: string;
   }

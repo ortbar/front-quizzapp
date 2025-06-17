@@ -45,6 +45,7 @@ errorMessage: string = '';
         next: (updated) => {
           this.successMessage = '✅ Perfil actualizado correctamente';
           this.errorMessage = '';
+           
         },
         error: (err: ApiErrorResponse) => {
         this.errorMessage = `❌ ${err.message || 'Error al actualizar el perfil'}`;

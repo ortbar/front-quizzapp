@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthLoginRequest } from '../models/auth/authLoginRequestModel';
 import { AuthLoginResponse } from '../models/auth/authLoginResponseModel';
-import { catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { ApiErrorResponse } from '../models/auth/api-error-response';
 import { AuthCreateUserRequest } from '../models/auth/authCreateUserRequestModel';
 import { AuthCreateUserResponse } from '../models/auth/authCreateUserResponseModel';
 import { error } from 'console';
+import { UserProfileUpdateDTO } from '../models/user/UserProfileUpdate.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  private currentUserSubject = new BehaviorSubject<UserProfileUpdateDTO | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   private getErrorMessage(error: HttpErrorResponse): string {
     if (error.status === 0) {
@@ -65,6 +69,25 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('jwt');
     this.router.navigate(['']);
+  }
+
+  
+    setCurrentUser(user: UserProfileUpdateDTO | null) {
+    this.currentUserSubject.next(user);
+  }
+
+    setCurrentUserFromToken(token: string) {
+    try {
+      const userData = jwtDecode<UserProfileUpdateDTO>(token);
+      this.currentUserSubject.next(userData);
+    } catch (error) {
+      console.error('Error decodificando token', error);
+      this.currentUserSubject.next(null);
+    }
+  }
+
+  getCurrentUser(): UserProfileUpdateDTO | null {
+    return this.currentUserSubject.value;
   }
 
   isAuthenticated(): boolean {
