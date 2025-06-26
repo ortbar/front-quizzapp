@@ -1,4 +1,3 @@
-
 <form  *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
   <label>Email:
     <input formControlName="email" type="email" />
@@ -18,26 +17,47 @@
   </div>
   
   <br />
-  <label>Nueva contraseña:
-<div class="password-container">
-  <input 
-    [type]="showPassword ? 'text' : 'password'"
-    formControlName="password"
-    id="password"
-  />
-  <button 
-    type="button" 
-    (click)="togglePasswordVisibility()" 
-    class="password-toggle-btn"
-    aria-label="Mostrar/Ocultar contraseña"
-  >
-    {{ showPassword ? '🙈' : '👁️' }}
-  </button>
-</div>
+  <label>
+    <input type="checkbox" (change)="togglePasswordChange()" /> Cambiar contraseña
   </label>
-    <div *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.invalid">
-    <small *ngIf="profileForm.get('password')?.errors?.['minlength']">Mínimo 5 caracteres.</small>
-    <small *ngIf="profileForm.get('password')?.errors?.['maxlength']">Máximo 10 caracteres.</small>
+
+  <div *ngIf="showPasswordFields">
+    <label>Contraseña actual:
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="currentPassword" />
+    </label>
+    <div *ngIf="profileForm.get('currentPassword')?.touched && profileForm.get('currentPassword')?.invalid">
+      <small *ngIf="profileForm.get('currentPassword')?.errors?.['required']">Contraseña actual es obligatoria.</small>
+    </div>
+    <br />
+    <label>Nueva contraseña:
+      <div class="password-container">
+        <input 
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="newPassword"
+          id="newPassword"
+        />
+        <button 
+          type="button" 
+          (click)="togglePasswordVisibility()" 
+          class="password-toggle-btn"
+          aria-label="Mostrar/Ocultar contraseña"
+        >
+          {{ showPassword ? '🙈' : '👁️' }}
+        </button>
+      </div>
+    </label>
+    <div *ngIf="profileForm.get('newPassword')?.touched && profileForm.get('newPassword')?.invalid">
+      <small *ngIf="profileForm.get('newPassword')?.errors?.['minlength']">Mínimo 5 caracteres.</small>
+      <small *ngIf="profileForm.get('newPassword')?.errors?.['maxlength']">Máximo 10 caracteres.</small>
+    </div>
+    <br />
+    <label>Repetir nueva contraseña:
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="repeatNewPassword" />
+    </label>
+    <div *ngIf="profileForm.get('repeatNewPassword')?.touched && profileForm.get('repeatNewPassword')?.invalid">
+      <small *ngIf="profileForm.get('repeatNewPassword')?.errors?.['required']">Repetir nueva contraseña es obligatoria.</small>
+      <small *ngIf="profileForm.get('repeatNewPassword')?.errors?.['mismatch']">Las contraseñas no coinciden.</small>
+    </div>
   </div>
   <br />
   <button type="submit" [disabled]="profileForm.invalid">Actualizar</button>

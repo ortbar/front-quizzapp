@@ -21,6 +21,10 @@ export class GameService {
     return this.http.post<Game>(`${this.apiUrl}/api/game/saveGame`, game);
   }
 
+  getRanking(): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}/api/game/ranking`);
+  }
+
 
 
 

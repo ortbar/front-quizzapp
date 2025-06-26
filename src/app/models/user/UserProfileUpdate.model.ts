@@ -5,7 +5,8 @@ export interface UserProfileUpdateDTO {
   email: string;
   username: string;
   currentPassword?:string;
-  newPassword?: string,
+  newPassword?: string;
+  repeatNewPassword?: string;
   roles: string[];
   enabled: boolean;
   accountNotExpired: boolean;

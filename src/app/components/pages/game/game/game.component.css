@@ -1,5 +1,16 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /* Contenedor principal del juego */
 .game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
@@ -34,8 +45,13 @@
 
 .progress {
   height: 100%;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #4caf50 0%, #ffeb3b 50%, #f44336 100%);
+  transition: width 0.3s ease, background 0.3s linear;
+}
+
+/* Nueva clase para animar el color de la barra según el tiempo */
+.progress.dynamic {
+  background: none;
 }
 
 /* Timer */

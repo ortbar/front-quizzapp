@@ -1,0 +1,71 @@
+/* Estilo atractivo y moderno para el ranking */
+.ranking-table {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 2rem 1rem 1.5rem 1rem;
+  text-align: center;
+}
+
+.ranking-table h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #2196f3;
+  letter-spacing: 1px;
+}
+
+.ranking-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+}
+
+.ranking-table th, .ranking-table td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ranking-table th {
+  background: #f5f5f5;
+  color: #333;
+  font-weight: 600;
+}
+
+.ranking-table tr:nth-child(odd) td {
+  background: #fafbfc;
+}
+
+.ranking-table tr:nth-child(1) td {
+  background: #ffe082;
+  font-weight: bold;
+  color: #bfa100;
+}
+.ranking-table tr:nth-child(2) td {
+  background: #b3e5fc;
+  font-weight: bold;
+  color: #0277bd;
+}
+.ranking-table tr:nth-child(3) td {
+  background: #c8e6c9;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+.ranking-table td {
+  transition: background 0.2s;
+}
+
+.ranking-table tr:hover td {
+  background: #e3f2fd;
+}
+
+@media (max-width: 600px) {
+  .ranking-table {
+    padding: 1rem 0.2rem;
+  }
+  .ranking-table table, .ranking-table th, .ranking-table td {
+    font-size: 0.95rem;
+  }
+}

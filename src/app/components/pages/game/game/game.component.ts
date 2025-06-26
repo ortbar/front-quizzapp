@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
      timer: number = 30; // Tiempo restante para responder una pregunta
      totalTime: number = 30;
      timerInterval: any; // Referencia al setInterval del temporizador
+     timerAnimationFrame: any; // Para requestAnimationFrame
      isAnswerSubmitted: boolean = false; // Controla si ya se respondió esta pregunta
      feedbackMessage: string = ''; // Mensaje de feedback (correcta / incorrecta)
      userAnswers: UserAnswer[] = []; // Respuestas dadas por el usuario (para guardar partida)
@@ -65,21 +66,31 @@ handleAnswerTimeout(){
 
 }
 
+// Reemplaza startTimer para usar requestAnimationFrame
 startTimer(): void {
-  this.timer = 30; // Resetear a 30 segundos
+  this.timer = this.totalTime;
+  const start = performance.now();
+  const duration = this.totalTime * 1000;
 
-  this.timerInterval = setInterval(() => {
-    this.timer--;
-    if (this.timer === 0) {
-      clearInterval(this.timerInterval);
-      this.handleAnswerTimeout(); // Acción cuando se agota el tiempo
+  const animate = (now: number) => {
+    const elapsed = now - start;
+    const remaining = Math.max(0, duration - elapsed);
+    this.timer = +(remaining / 1000).toFixed(2);
+    if (remaining > 0 && !this.isAnswerSubmitted) {
+      this.timerAnimationFrame = requestAnimationFrame(animate);
+    } else if (!this.isAnswerSubmitted) {
+      this.timer = 0;
+      this.handleAnswerTimeout();
     }
-  }, 1000);
+  };
+  this.timerAnimationFrame = requestAnimationFrame(animate);
 }
 
-// metodo para cuando el usuario responda antes de tiempo, detener el timer
+// Detener animación al responder
 selectAnswer(answerId: number): void {
-  clearInterval(this.timerInterval);
+  if (this.timerAnimationFrame) {
+    cancelAnimationFrame(this.timerAnimationFrame);
+  }
   
 
   const currentAnswer = this.currentQuestion.answers.find(a => a.id === answerId);
@@ -99,14 +110,14 @@ goToNextQuestion(): void {
   this.isAnswerSubmitted = false;
   this.selectedAnswerId = null;
   this.feedbackMessage = '';
-
   this.currentQuestionIndex++;
-
   if (this.currentQuestionIndex < this.questions.length) {
     this.currentQuestion = this.questions[this.currentQuestionIndex];
-    this.startTimer(); // Reiniciar el temporizador para la nueva pregunta
+    this.startTimer();
   } else {
-    
+    if (this.timerAnimationFrame) {
+      cancelAnimationFrame(this.timerAnimationFrame);
+    }
     console.log('Juego finalizado. Puntuación:', this.score);
  
     clearInterval(this.timerInterval);
@@ -122,6 +133,7 @@ goToNextQuestion(): void {
     this.gameService.saveGame(gameData).subscribe({
       next: response => {
         console.log('Partida guardada con éxito:', response);
+         this.router.navigate(['/user-dashboard']);
       },
       error: err => {
         console.error('Error al guardar la partida:', err);
@@ -134,6 +146,24 @@ goToNextQuestion(): void {
   reiniciarJuego(): void {
   window.location.reload(); // Recarga la página (simple y directo)
 }
+
+  // Devuelve un color de fondo para la barra de progreso según el tiempo restante
+  getProgressColor(): string {
+    const percent = this.timer / this.totalTime;
+    if (percent > 0.5) {
+      // Verde a amarillo
+      const ratio = (percent - 0.5) * 2;
+      return `linear-gradient(90deg, #4caf50 ${ratio * 100}%, #ffeb3b)`;
+    } else if (percent > 0.2) {
+      // Amarillo a naranja
+      const ratio = (percent - 0.2) / 0.3;
+      return `linear-gradient(90deg, #ffeb3b ${ratio * 100}%, #ff9800)`;
+    } else {
+      // Naranja a rojo
+      const ratio = percent / 0.2;
+      return `linear-gradient(90deg, #ff9800 ${ratio * 100}%, #f44336)`;
+    }
+  }
 
 }
 

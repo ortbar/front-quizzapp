@@ -31,6 +31,7 @@ export class LayoutComponent implements OnInit {
         this.welcomeMessage = "";
       }
     });
+    
 }
   }
 

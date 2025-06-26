@@ -8,7 +8,7 @@ export interface Game{
   createdAt: string; // LocalDateTime → string ISO en JSON
   userId?: number;
   username?: string;
-  answers: UserAnswer[];
+  answers?: UserAnswer[];
 
 
 

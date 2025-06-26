@@ -7,11 +7,15 @@
   </div>
 
   <div class="progress-bar">
-    <div class="progress" [style.width.%]="(timer / totalTime) * 100"></div>
+    <div 
+      class="progress dynamic"
+      [style.width.%]="(timer / totalTime) * 100"
+      [style.background]="getProgressColor()"
+    ></div>
   </div>
-  <div class="timer">
+  <!-- <div class="timer">
     ⏱ Tiempo restante: {{ timer }}s
-  </div>
+  </div> -->
 
   <div class="answers">
     <button 

@@ -1,0 +1,29 @@
+
+
+<div class="ranking-table">
+  <h2>🏆 Top 10 Ranking</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Puesto</th>
+        <th>Usuario</th>
+        <th>Puntuación</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of ranking; let i = index">
+        <td>
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2">{{ i + 1 }}</span>
+        </td>
+        <td><b>{{ game.username }}</b></td>
+        <td>{{ game.score | number: '1.0-2' }}</td>
+        <td>{{ game.createdAt | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

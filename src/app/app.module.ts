@@ -26,6 +26,7 @@ import { QuestionTableComponent } from './components/pages/admin/question-table/
 import { QuestionEditModalComponent } from './components/pages/admin/question-edit-modal/question-edit-modal.component';
 import { EditUserProfileComponent } from './components/pages/edit-user-profile/edit-user-profile/edit-user-profile.component';
 import { GameComponent } from './components/pages/game/game/game.component';
+import { RankingComponent } from './components/pages/shared/ranking/ranking.component';
 
 
 
@@ -45,7 +46,8 @@ import { GameComponent } from './components/pages/game/game/game.component';
     QuestionTableComponent,
     QuestionEditModalComponent,
     EditUserProfileComponent,
-    GameComponent
+    GameComponent,
+    RankingComponent
   
     
     

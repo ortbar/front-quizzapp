@@ -12,11 +12,17 @@
     </div>
   </header>
 
-  <!-- Botones principales: Jugar y Ranking -->
+ 
   <section   *ngIf="router.url === '/user-dashboard' || router.url === '/admin'"
   class="main-actions">
     <button routerLink="/juego" class="action-btn">🎮 Comenzar juego</button>
-    <button routerLink="/ranking" class="action-btn">🏆 Ver ranking</button>
+    <!-- el ranking debe aparecer renderizado en layout como una tabla al lado o encima del boton jugar sin pulsar ningun boton -->
+     <app-ranking></app-ranking>
+     
+
+    
+
+
   </section>
 
   <!-- Contenido principal dinámico -->
