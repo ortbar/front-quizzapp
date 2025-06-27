@@ -4,6 +4,7 @@ import { UserAnswer } from 'src/app/models/game/userAnswer.model';
 import { Question } from 'src/app/models/question/question.model';
 import { GameService } from 'src/app/services/game.service';
 import { QuestionServiceService } from 'src/app/services/question-service.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-game',
@@ -28,9 +29,12 @@ export class GameComponent implements OnInit {
      isGameFinished: boolean = false;
     
 
-  constructor(private gameService: GameService,
-              private questionService: QuestionServiceService,
-              private router: Router) { }
+  constructor(
+    private gameService: GameService,
+    private questionService: QuestionServiceService,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
 
 // inicializa la partida y carga 10 preguntas con respuestas
@@ -133,7 +137,13 @@ goToNextQuestion(): void {
     this.gameService.saveGame(gameData).subscribe({
       next: response => {
         console.log('Partida guardada con éxito:', response);
-         this.router.navigate(['/user-dashboard']);
+        // Redirigir según el rol
+        const role = this.authService.getUserRole();
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/user-dashboard']);
+        }
       },
       error: err => {
         console.error('Error al guardar la partida:', err);

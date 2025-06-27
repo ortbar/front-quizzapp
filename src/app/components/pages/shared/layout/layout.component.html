@@ -16,7 +16,6 @@
   <section   *ngIf="router.url === '/user-dashboard' || router.url === '/admin'"
   class="main-actions">
     <button routerLink="/juego" class="action-btn">🎮 Comenzar juego</button>
-    <!-- el ranking debe aparecer renderizado en layout como una tabla al lado o encima del boton jugar sin pulsar ningun boton -->
      <app-ranking></app-ranking>
      
 
@@ -25,13 +24,12 @@
 
   </section>
 
-  <!-- Contenido principal dinámico -->
   <main>
     <router-outlet></router-outlet>
   </main>
 
   <!-- Footer -->
   <footer>
-    <small>© 2025 - Mi App</small>
+    <small>© 2025 - Quizzapp Harry Potter</small>
   </footer>
 </div>

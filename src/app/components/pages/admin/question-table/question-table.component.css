@@ -109,6 +109,23 @@ table {
   .status-blocked {
     color: #e74c3c;
   }
+  
+  .actions-cell {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  table td:last-child {
+    min-width: 140px;
+  }
+  
+  table button {
+    margin-right: 0;
+  }
+  
   /* Estilos responsive para la tabla */
   @media (max-width: 768px) {
     table {

@@ -37,7 +37,7 @@ export class EditUserProfileComponent implements OnInit {
             [Validators.required, Validators.email]
           ],
           currentPassword: [''],
-          newPassword: ['', [Validators.minLength(5), Validators.maxLength(10)]],
+          newPassword: [''],
           repeatNewPassword: ['']
         }, { validators: this.passwordsMatchValidator });
       }
@@ -45,6 +45,11 @@ export class EditUserProfileComponent implements OnInit {
   }
 
   passwordsMatchValidator: ValidatorFn = (group: AbstractControl) => {
+    // Solo validar si el usuario quiere cambiar la contraseña
+    if (!this.showPasswordFields) {
+      group.get('repeatNewPassword')?.setErrors(null);
+      return null;
+    }
     const newPassword = group.get('newPassword')?.value;
     const repeatNewPassword = group.get('repeatNewPassword')?.value;
     if (newPassword && repeatNewPassword && newPassword !== repeatNewPassword) {
@@ -58,13 +63,17 @@ export class EditUserProfileComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.valid) {
       const formValue = { ...this.profileForm.value };
-      const payload = {
+      // Solo incluir campos de password si el usuario quiere cambiar contraseña
+      const payload: any = {
         email: formValue.email,
-        username: formValue.username,
-        currentPassword: formValue.currentPassword || '',
-        newPassword: formValue.newPassword || '',
-        repeatNewPassword: formValue.repeatNewPassword || ''
+        username: formValue.username
       };
+      if (this.showPasswordFields && formValue.currentPassword && formValue.newPassword && formValue.repeatNewPassword) {
+        payload.currentPassword = formValue.currentPassword;
+        payload.newPassword = formValue.newPassword;
+        payload.repeatNewPassword = formValue.repeatNewPassword;
+      }
+      // Nunca enviar los campos de password si el usuario no quiere cambiar contraseña
       this.userService.updateUserProfile(payload).subscribe({
         next: (updated) => {
           this.successMessage = '✅ Perfil actualizado correctamente';
@@ -100,7 +109,17 @@ export class EditUserProfileComponent implements OnInit {
 
   togglePasswordChange() {
     this.showPasswordFields = !this.showPasswordFields;
-    if (!this.showPasswordFields) {
+    const currentPassword = this.profileForm.get('currentPassword');
+    const newPassword = this.profileForm.get('newPassword');
+    const repeatNewPassword = this.profileForm.get('repeatNewPassword');
+    if (this.showPasswordFields) {
+      currentPassword?.setValidators([Validators.required]);
+      newPassword?.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(10)]);
+      repeatNewPassword?.setValidators([Validators.required]);
+    } else {
+      currentPassword?.clearValidators();
+      newPassword?.clearValidators();
+      repeatNewPassword?.clearValidators();
       this.profileForm.patchValue({
         currentPassword: '',
         newPassword: '',
@@ -110,6 +129,9 @@ export class EditUserProfileComponent implements OnInit {
       this.clearControlErrors('newPassword');
       this.clearControlErrors('repeatNewPassword');
     }
+    currentPassword?.updateValueAndValidity();
+    newPassword?.updateValueAndValidity();
+    repeatNewPassword?.updateValueAndValidity();
   }
 
   togglePasswordVisibility() {
